@@ -1,12 +1,34 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Ventana Create</h1>
-</body>
-</html>
+@extends('plantilla')
+@section('content')
+<style>
+ .uper {
+    margin-top: 40px;
+ }
+</style>
+<div class="card uper">
+ <div class="card-header">
+ Agregar Casillas
+ </div>
+ <div class="card-body">
+ @if ($errors->any())
+ <div class="alert alert-danger">
+ <ul>
+ @foreach ($errors->all() as $error)
+ <li>{{ $error }}</li>
+ @endforeach
+ </ul>
+ </div><br />
+ @endif
+ <form method="post" action="{{ route('rol.store') }} " enctype="multipart/form-data">
+ {{ csrf_field() }}
+ <div class="form-group">
+ @csrfdes
+ <label for="descripcion">Descripción:</label>
+ <input type="text" class="form-control" name="descripcion"/>
+ </div>
+ 
+ <button type="submit" class="btn btn-primary">Guardar</button>
+ </form>
+ </div>
+</div>
+@endsection    

@@ -15,8 +15,8 @@ class RolController extends Controller
      */
     public function index()
     {
-        $rol = Rol::all();
-        return view('rol.list', compact('rol'));
+        $roles = Rol::all();
+        return view('rol.list', compact('roles'));
     }
 
     private function validateData(Request $request){
@@ -47,7 +47,7 @@ class RolController extends Controller
         $data['descripcion'] = $request->descripcion;
         $rol = Rol::create($data);
         return redirect('rol')->with('success',
-            $rol->descripcion . 'guardado satisfactoriamente ...');
+            $rol->descripcion . ' guardado satisfactoriamente ...');
     }
 
     /**
@@ -103,6 +103,6 @@ class RolController extends Controller
     {
         Rol::whereId($id)->delete();
         return redirect('rol')->with('success',
-            'El elemnto fue borrado ...');
+            'El elemento fue borrado ...');
     }
 }

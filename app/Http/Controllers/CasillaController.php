@@ -41,7 +41,7 @@ class CasillaController extends Controller
         $data['ubicacion'] = $request->ubicacion;
         $casilla = Casilla::create($data);
         return redirect('casilla')->with('success',
-            $casilla->ubicacion . 'guardado satisfactoriamente ...');
+            $casilla->ubicacion . ' guardado satisfactoriamente ...');
     }
 
     private function validateData(Request $request){
@@ -105,6 +105,6 @@ class CasillaController extends Controller
     {
         Casilla::whereId($id)->delete();
         return redirect('casilla')->with('success',
-            'El elemnto fue borrado ...');
+            'El elemento fue borrado ...');
     }
 }
