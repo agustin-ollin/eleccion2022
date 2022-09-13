@@ -43,7 +43,11 @@ class RolController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validateData($request);
+        $data['descripcion'] = $request->descripcion;
+        $rol = Rol::create($data);
+        return redirect('rol')->with('success',
+            $rol->descripcion . 'guardado satisfactoriamente ...');
     }
 
     /**
@@ -65,7 +69,12 @@ class RolController extends Controller
      */
     public function edit($id)
     {
-        //
+        $rol = Rol::find($id);
+
+        if($rol)
+            return view("rol.edit", compact("rol"));
+        else 
+            echo "No se encontró";
     }
 
     /**
@@ -77,7 +86,11 @@ class RolController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validateData($request);
+        $data['descripcion'] = $request->descripcion;
+        Rol::whereId($id)->update($data);
+        return redirect('rol')->with('success',
+            'El cambio se realizó correctamente ...');
     }
 
     /**
@@ -88,6 +101,8 @@ class RolController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Rol::whereId($id)->delete();
+        return redirect('rol')->with('success',
+            'El elemnto fue borrado ...');
     }
 }
