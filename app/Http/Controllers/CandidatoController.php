@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Models\Candidato;
+
 class CandidatoController extends Controller
 {
     /**
@@ -13,7 +15,8 @@ class CandidatoController extends Controller
      */
     public function index()
     {
-        //
+        $candidatos = Candidato::all();
+        return view('candidato.list', compact('candidatos'));
     }
 
     /**
@@ -23,7 +26,7 @@ class CandidatoController extends Controller
      */
     public function create()
     {
-        //
+        return view("candidato.create");
     }
 
     /**
@@ -34,7 +37,35 @@ class CandidatoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validateData($request);
+        $foto = "";
+        $perfil = "";
+        if ($request->hasFile('foto')) {
+            $foto= $request->file('foto')->getClientOriginalName();
+            $request->file('foto')->move(public_path('images'), $foto);
+
+        }
+        if ($request->hasFile('perfil')) {
+            $perfil= $request->file('perfil')->getClientOriginalName();
+            $request->file('perfil')->move(public_path('pdf'), $perfil);
+        }
+
+        $data= [
+            "nombrecompleto"=>$request->nombrecompleto,
+            "sexo"=>$request->sexo,
+            "foto"=>$foto,
+            "perfil"=>$perfil
+        ];
+        $candidato= Candidato::create($data);
+        return redirect('candidato')->with('success',
+                $candidato->nombrecompleto . ' guardado satisfactoriamente ...');
+    }
+
+    private function validateData(Request $request){
+        $request->validate([
+            'nombrecompleto' => 'required|max:100',
+            'sexo' => 'required'
+        ]);
     }
 
     /**
