@@ -38,6 +38,20 @@ class CandidatoController extends Controller
     public function store(Request $request)
     {
         $this->validateData($request);
+        $data = $this->prepareData($request);
+        $candidato= Candidato::create($data);
+        return redirect('candidato')->with('success',
+                $candidato->nombrecompleto . ' guardado satisfactoriamente ...');
+    }
+
+    private function validateData(Request $request){
+        $request->validate([
+            'nombrecompleto' => 'required|max:100',
+            'sexo' => 'required'
+        ]);
+    }
+
+    private function prepareData(Request $request){
         $foto = "";
         $perfil = "";
         if ($request->hasFile('foto')) {
@@ -56,16 +70,7 @@ class CandidatoController extends Controller
             "foto"=>$foto,
             "perfil"=>$perfil
         ];
-        $candidato= Candidato::create($data);
-        return redirect('candidato')->with('success',
-                $candidato->nombrecompleto . ' guardado satisfactoriamente ...');
-    }
-
-    private function validateData(Request $request){
-        $request->validate([
-            'nombrecompleto' => 'required|max:100',
-            'sexo' => 'required'
-        ]);
+        return $data;
     }
 
     /**
@@ -87,7 +92,14 @@ class CandidatoController extends Controller
      */
     public function edit($id)
     {
-        //
+        $id = intval($id);
+        $candidato = Candidato::whereId($id)->first();
+
+        if ($candidato){
+            return view("candidato.edit", compact("candidato"));
+        } else {
+            echo "Dato no encontrado";
+        }
     }
 
     /**
@@ -99,7 +111,11 @@ class CandidatoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validateData($request);
+        $data = $this->prepareData($request);
+        $candidato= Candidato::whereId($id)->update($data);
+        return redirect('candidato')->with('success',
+                $data['nombrecompleto'] . ' guardado satisfactoriamente ...');
     }
 
     /**
@@ -110,6 +126,8 @@ class CandidatoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Candidato::whereId($id)->delete();
+        return redirect('candidato')->with('success',
+            'El elemento fue borrado ...');
     }
 }
