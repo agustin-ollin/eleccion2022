@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CasillaController;
 use App\Http\Controllers\CandidatoController;
 use App\Http\Controllers\RolController;
+use App\Http\Controllers\FuncionarioController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,3 +24,4 @@ Route::get('/', function () {
 Route::resource('casilla', CasillaController::class);
 Route::resource("candidato", CandidatoController::class);
 Route::resource("rol", RolController::class);
+Route::resource("funcionario", FuncionarioController::class);
