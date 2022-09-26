@@ -5,6 +5,7 @@ use App\Http\Controllers\CasillaController;
 use App\Http\Controllers\CandidatoController;
 use App\Http\Controllers\RolController;
 use App\Http\Controllers\FuncionarioController;
+use App\Http\Controllers\VotoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,3 +26,4 @@ Route::resource('casilla', CasillaController::class);
 Route::resource("candidato", CandidatoController::class);
 Route::resource("rol", RolController::class);
 Route::resource("funcionario", FuncionarioController::class);
+Route::resource("voto", VotoController::class);
