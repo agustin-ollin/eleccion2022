@@ -6,6 +6,7 @@ use App\Http\Controllers\CandidatoController;
 use App\Http\Controllers\RolController;
 use App\Http\Controllers\FuncionarioController;
 use App\Http\Controllers\VotoController;
+use App\Http\Controllers\EleccionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,3 +28,4 @@ Route::resource("candidato", CandidatoController::class);
 Route::resource("rol", RolController::class);
 Route::resource("funcionario", FuncionarioController::class);
 Route::resource("voto", VotoController::class);
+Route::resource("eleccion", EleccionController::class);

@@ -10,11 +10,11 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Votocandidato
- * 
+ *
  * @property int $voto_id
  * @property int $candidato_id
  * @property int|null $votos
- * 
+ *
  * @property Candidato $candidato
  * @property Voto $voto
  *
@@ -33,6 +33,8 @@ class Votocandidato extends Model
 	];
 
 	protected $fillable = [
+        'voto_id',
+        'candidato_id',
 		'votos'
 	];
 
