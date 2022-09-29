@@ -88,7 +88,14 @@ class EleccionController extends Controller
      */
     public function edit($id)
     {
-        //
+        $id = intval($id);
+        $eleccion = Eleccion::whereId($id)->first();
+
+        if ($eleccion){
+            return view("eleccion.edit", compact("eleccion"));
+        } else {
+            echo "Dato no encontrado";
+        }
     }
 
     /**
@@ -100,7 +107,12 @@ class EleccionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validateData($request);
+        $data = $this->prepareData($request);
+        $eleccion= Eleccion::whereId($id)->update($data);
+        return redirect('eleccion')->with('success',
+            $data['periodo'] . ' guardado satisfactoriamente ...');
+
     }
 
     /**
@@ -111,6 +123,8 @@ class EleccionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Eleccion::whereId($id)->delete();
+        return redirect('eleccion')->with('success',
+            'El elemento fue borrado ...');
     }
 }

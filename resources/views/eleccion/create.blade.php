@@ -43,7 +43,7 @@
                 </div>
                 <div class="form-group">
                     <label for="horacierrre">Hora de Cierre:</label>
-                    <input type="time" class="form-control" name="horacierrre"/>
+                    <input type="time" class="form-control" name="horacierre"/>
                 </div>
                 <div class="form-group">
                     <label for="observaciones">Observaciones:</label>
