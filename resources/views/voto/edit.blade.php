@@ -1,13 +1,9 @@
 @extends('plantilla')
 @section('content')
-    <style>
-        .uper {
-            margin-top: 40px;
-        }
-    </style>
+
     <div class="card uper">
         <div class="card-header">
-            Editar Voto
+            Editar Votos
         </div>
         <div class="card-body">
             @if ($errors->any())
@@ -19,61 +15,56 @@
                     </ul>
                 </div><br/>
             @endif
-            <form method="POST"
-                  action="{{ route('voto.update', $voto->id) }}"
-                  enctype="multipart/form-data">
-                {{ csrf_field() }}
+            <form action="{{ route('voto.update',$voto->id) }}"
+                  method="post" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="form-group">
-                    <label for="id">ID:</label>
-                    <input type="text"
-                           class="form-control"
-                           readonly="true"
-                           value="{{$voto->id}}"
-                           name="id"/>
+                    <input type="hidden"
+                           name="eleccion_id"
+                           value="{{$voto->eleccion_id}}"
+                    />
+                    <label for="eleccion">Eleción:</label>
+                    <input type="text" id="eleccion"
+                           value="{{$voto->eleccion->periodo}}"
+                           readonly/>
                 </div>
                 <div class="form-group">
-                    <label for="eleccion_id">Elección:</label>
-                    <select name="eleccion_id" id="eleccion_id" >
-                        @foreach ($elecciones as $eleccion)
-                            <option value="{{$eleccion->id}}">{{$eleccion->periodo}}</option>
-                        @endforeach
-                    </select>
+                    <input type="hidden"
+                           name="casilla_id"
+                           value="{{$voto->casilla_id}}"
+                    />
+                    <label for="casilla">Casilla:</label>
+                    <input type="text" id="casilla"
+                           value="{{$voto->casilla->ubicacion}}"
+                           readonly/>
                 </div>
-                <div class="form-group">
-                    <label for="casilla_id">Casilla:</label>
-                    <select name="casilla_id" id="casilla_id" >
-                        @foreach ($casillas as $casilla)
-                            <option value="{{$casilla->id}}">{{$casilla->ubicacion}}</option>
-                        @endforeach
-                    </select>
-                </div>
+                <hr></hr>
                 <div class="form-group">
                     <table class="table">
-                        <thead>
-                        <th>Candidato</th>
-                        <th>Votos</th>
-                        </thead>
-                        <tbody>
-                        @foreach ($candidatos as $candidato)
+                        @foreach($voto->candidatos as $candidato)
                             <tr>
-                                <td>{{$candidato->nombrecompleto}}</td>
-                                <td><input type="number" id=""
-                                           name="candidato_{{$candidato->id}}" >
-                                </td>
+                                <td>{{$candidato->nombrecompleto}} </td>
+                                <td><input type="text"
+                                           value="{{$candidato->pivot->votos}}"
+                                           name="candidato_{{$candidato->id}}"></td>
                             </tr>
                         @endforeach
-                        </tbody>
                     </table>
                 </div>
                 <div class="form-group">
                     <label for="evidencia">Evidencia:</label>
-                    <input type="file" id="evidencia" name="evidencia" value="{{$voto->evidencia}}">
+                    <input type="file" id="evidencia"
+                           accept="application/pdf"
+                           class="form-control" name="evidencia"/>
                 </div>
 
-                <button type="submit" class="btn btn-primary">Guardar</button>
+                <button class="btn btn-primary"
+                        type="submit">Guardar cambios
+                </button>
+
+
             </form>
-        </div>
-    </div>
+
 @endsection
+

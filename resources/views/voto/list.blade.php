@@ -1,11 +1,7 @@
 @extends('plantilla')
 @section('content')
-    <style>
-        .uper {
-            margin-top: 40px;
-        }
-    </style>
-    <div class="uper">
+
+    <div>
         @if(session()->get('success'))
             <div class="alert alert-success">
                 {{ session()->get('success') }}
@@ -15,9 +11,9 @@
             <thead>
             <tr>
                 <td>ID</td>
-                <td>ELECCIÓN</td>
-                <td>CASILLA</td>
-                <td>EVIDENCIA</td>
+                <td>Eleccion</td>
+                <td>Casilla</td>
+                <td>Candidatos</td>
                 <td colspan="2">Action</td>
             </tr>
             </thead>
@@ -25,9 +21,20 @@
             @foreach($votos as $voto)
                 <tr>
                     <td>{{$voto->id}}</td>
-                    <td>{{$voto->eleccion_id}}</td>
-                    <td>{{$voto->casilla_id}}</td>
-                    <td>{{$voto->evidencia}}</td>
+                    <td>{{$voto->eleccion->periodo}}</td>
+                    <td>{{$voto->casilla->ubicacion}}</td>
+                    <td>
+                        <table class="table">
+                            @foreach($voto->candidatos as $candidato)
+                                <tr>
+                                    <td>{{$candidato->nombrecompleto}} </td>
+                                    <td><input type="text" readonly
+                                               value="{{$candidato->pivot->votos}}"
+                                               name="candidato_{{$candidato->id}}"></td>
+                                </tr>
+                            @endforeach
+                        </table>
+                    </td>
                     <td><a href="{{ route('voto.edit', $voto->id)}}"
                            class="btn btn-primary">Edit</a></td>
                     <td>
