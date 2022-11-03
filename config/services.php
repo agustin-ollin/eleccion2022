@@ -29,5 +29,15 @@ return [
         'secret' => env('AWS_SECRET_ACCESS_KEY'),
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
+    #--- agregar este bloque
+    'facebook' => [
+        'client_id' => env('FACEBOOK_CLIENT_ID', '422917370039379'),
+        'client_secret' =>
+            env('FACEBOOK_CLIENT_SECRET',
+                'e22156b889606b5b6ed3aebe302b8756'),
+        'redirect' =>
+            env('FACEBOOK_REDIRECT',
+                'http://localhost:8888/login/facebook/callback')
+    ],
 
 ];

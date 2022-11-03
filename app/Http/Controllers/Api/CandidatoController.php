@@ -103,7 +103,7 @@ class CandidatoController extends GenericController
      */
     public function edit($id)
     {
-
+//
     }
 
     /**
@@ -128,7 +128,7 @@ class CandidatoController extends GenericController
      */
     public function destroy($id)
     {
-//
+        return Candidato::destroy($id);
     }
 
 }
