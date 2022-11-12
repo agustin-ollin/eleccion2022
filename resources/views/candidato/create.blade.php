@@ -40,7 +40,7 @@
                            onchange="loadImg()"
                     >
                     <div id="previewImage"></div>
-                    <img id="img"  height="500px"/>
+                    <img id="img" height="500px"/>
                 </div>
                 <div class="form-group">
                     <label for="perfil">Perfil:</label>
@@ -51,6 +51,15 @@
                     <div>
                         <embed id="vistaPrevia" type="application/pdf" width="700">
                     </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="curp">curp:</label>
+                    <input type="text"
+                           id="curp"
+                           name="curp"
+                           onfocusout="validate(this)"
+                    >
                 </div>
                 <button type="submit" class="btn btn-primary">Guardar</button>
             </form>
@@ -95,7 +104,6 @@
                 }
             }
         }
-
 
 
         //Previsualizar el pdf
